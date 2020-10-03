@@ -1,0 +1,2 @@
+＃GuliEdu
+这是模仿尚硅谷的鼓励教育python项目，用于自学python完整项目
