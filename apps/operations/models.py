@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import  datetime
 from users.models import  UserProfile
+from courses.models import CoursesInfo
 
 # Create your models here.
 class UserAsk(models.Model):
@@ -28,4 +29,43 @@ class UserLove(models.Model):
 
     class Meta:
         verbose_name = '收藏信息'
+        verbose_name_plural = verbose_name
+
+class UserCourse(models.Model):
+     study_man = models.ForeignKey(UserProfile,verbose_name="学习用户")
+     study_course = models.ForeignKey(CoursesInfo,verbose_name="学习课程")
+     add_time = models.DateTimeField(default=datetime.now, verbose_name="学习时间")
+
+     def __str__(self):
+         return self.study_man.username
+
+     class Meta:
+         unique_together = ('study_man','study_course')
+         verbose_name= '用户学习课程信息'
+         verbose_name_plural = verbose_name
+
+class UserComment(models.Model):
+    comment_man = models.ForeignKey(UserProfile, verbose_name="评论用户")
+    comment_course = models.ForeignKey(CoursesInfo, verbose_name="评论课程")
+    comment_content = models.CharField(max_length=300,verbose_name="评论内容")
+    add_time = models.DateTimeField(default=datetime.now, verbose_name="评论时间")
+
+    def __str__(self):
+        return self.comment_content
+
+    class Meta:
+        verbose_name ='用户评论课程信息'
+        verbose_name_plural = verbose_name
+
+class UserMessage(models.Model):
+    message_man = models.IntegerField(default=0,verbose_name="消息用户")
+    message_content = models.CharField(max_length=200,verbose_name="消息内容")
+    message_status = models.BooleanField(default=False,verbose_name="消息状态")
+    add_time = models.DateTimeField(default=datetime.now, verbose_name="评论时间")
+
+    def __str__(self):
+        return self.message_content
+
+    class Meta:
+        verbose_name = '用户消息信息'
         verbose_name_plural = verbose_name
