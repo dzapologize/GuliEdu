@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'operations.apps.OperationsConfig'
 ]
 
+#注明继承关系
+AUTH_USER_MODEL ='users.UserProfile'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

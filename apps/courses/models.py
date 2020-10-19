@@ -17,8 +17,8 @@ class CoursesInfo():
     course_notice = models.CharField(max_length=200,verbose_name="课程公告")
     course_need = models.CharField(max_length=100,verbose_name="课程须知")
     teacher_tell = models.CharField(max_length=100,verbose_name="老师教导")
-    orginfo = models.ForeignKey(OrgInfo,verbose_name="所属机构")
-    teacherinfo = models.ForeignKey(TeacherInfo,verbose_name="所属讲师")
+    orginfo = models.ForeignKey(OrgInfo,verbose_name="所属机构",on_delete=models.CASCADE)
+    teacherinfo = models.ForeignKey(TeacherInfo,verbose_name="所属讲师",on_delete=models.CASCADE)
     add_time = models.DateTimeField(default=datetime.now,verbose_name="添加时间")
 
     def __str__(self):
@@ -30,7 +30,7 @@ class CoursesInfo():
 
 class LessonInfo(models.Model):
     name = models.CharField(max_length=50,verbose_name="章节名称")
-    couseinfo = models.ForeignKey(CoursesInfo,verbose_name="所属课程")
+    couseinfo = models.ForeignKey(CoursesInfo,verbose_name="所属课程",on_delete=models.CASCADE)
     add_time = models.DateTimeField(default=datetime.now,verbose_name="添加时间")
 
     def __str__(self):
@@ -44,7 +44,7 @@ class VideoInfo(models.Model):
     name = models.CharField(max_length=50, verbose_name="视频名称")
     study_time = models.IntegerField(default=0,verbose_name="视频时长")
     url = models.URLField(default='http://www.atguigu.com',verbose_name="视频链接",max_length=200)
-    lessoninfo = models.ForeignKey(LessonInfo,verbose_name="所属章节")
+    lessoninfo = models.ForeignKey(LessonInfo,verbose_name="所属章节",on_delete=models.CASCADE)
     add_time = models.DateTimeField(default=datetime.now,verbose_name="添加时间")
 
     def __str__(self):
@@ -57,7 +57,7 @@ class VideoInfo(models.Model):
 class SourceInfo(models.Model):
     name = models.CharField(max_length=50,verbose_name="资源名称")
     down_load = models.FileField(upload_to="source/",max_length=200,verbose_name="下载路径")
-    courseinfo = models.ForeignKey(CoursesInfo,verbose_name="所属课程")
+    courseinfo = models.ForeignKey(CoursesInfo,verbose_name="所属课程",on_delete=models.CASCADE)
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
 
     def __str__(self):
